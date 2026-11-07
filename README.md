@@ -15,6 +15,8 @@ A collection of small, self-contained examples that each illustrate one backend 
 | 06 | [example_06](./example_06) | HTTP methods | Manipulate a JSON object with GET, POST, PUT, PATCH, DELETE | `express.json()`, `req.body`, in-memory data, testing with `curl` |
 | 07 | [example_07](./example_07) | MS SQL database | Read rows from SQL Server in a route | `mssql` connection pool, `.env` credentials with `dotenv`, SQL queries in routes |
 | 08 | [example_08](./example_08) | Path parameters and query strings | Get one user by id, filter users by name and age | `req.params`, `req.query`, parameterized SQL with `.input()`, 400 and 404 responses |
+| 09 | [example_09](./example_09) | Static HTML page | Respond with an HTML file | `express.static`, a `public` folder, `res.sendFile()`, the `text/html` Content-Type |
+| 10 | [example_10](./example_10) | HTML string response | Respond with HTML written in `server.js` | `res.send()` with an HTML string, template literals, building HTML from an array, XSS warning |
 
 ## Example summaries
 
@@ -44,6 +46,12 @@ Connects to a Microsoft SQL Server database with the `mssql` package. Credential
 
 ### example_08 - Path parameters and query strings
 Builds on example_07. `GET /users/:id` reads the id from the path with `req.params` and returns one user (400 for a bad id, 404 when not found). `GET /users` accepts optional `name` and `minAge` query strings read from `req.query` to filter the list. Includes SQL to insert sample users and uses `.input()` so values never get concatenated into the SQL.
+
+### example_09 - Static HTML page
+Serves HTML files from a `public` folder with `express.static`, so `/` returns `index.html` and `/about.html` returns `about.html`. One extra route uses `res.sendFile()` to send a file from a custom path (`/about-us`). Needs no database; it is based on the Express-only setup of example_06. Shows the `text/html` Content-Type with `curl -i`.
+
+### example_10 - HTML string response
+Replies with HTML written as a string inside `server.js` using `res.send()`. `/` sends a fixed string, `/time` uses a template literal to insert the current time, and `/users` builds a list from an array with `map()`. Express sets the `text/html` Content-Type automatically for strings. The exercise ends with a warning about putting user input straight into HTML (XSS).
 
 ## Running an example
 
